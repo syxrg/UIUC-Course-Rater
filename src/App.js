@@ -27,7 +27,13 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
+      <div class="topnav">
+        <a href="#login">
+          Login
+        </a>
+        <a href="#rate">Rate</a>
+        <a href="#browse" class="active">Browse</a>
+      </div>
         <div>
           <h2>CSV Data:</h2>
           <ul>
@@ -38,7 +44,6 @@ function App() {
             ))}
           </ul>
         </div>
-      </header>
     </div>
   );
 }
