@@ -1,9 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
+      <div class="topnav">
+        <a href="#login">
+          Login
+        </a>
+        <a href="#rate">Rate</a>
+        <a href="#browse" class="active">Browse</a>
+      </div>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
