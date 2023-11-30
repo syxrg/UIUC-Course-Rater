@@ -34,7 +34,6 @@ function App() {
         <a href="#rate">Rate</a>
         <a href="#browse" class="active">Browse</a>
       </div>
-      <header className="App-header">
         <div>
           <h2>CSV Data:</h2>
           <ul>
@@ -45,7 +44,6 @@ function App() {
             ))}
           </ul>
         </div>
-      </header>
     </div>
   );
 }
