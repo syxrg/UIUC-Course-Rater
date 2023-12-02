@@ -32,7 +32,7 @@ function App() {
   return (
     <div className="App">
       <div class="topnav">
-        <NavLink to="/account">Account</NavLink>
+        <NavLink exact to="/account">Account</NavLink>
         {/* <a href="#login">
           Login
         </a> */}
