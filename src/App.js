@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Routes, Route, NavLink } from "react-router-dom";
 
 import Papa from 'papaparse';
 import './App.css';
+import Account from './components/Account';
+import Browse from './components/Browse';
+import Rate from './components/Rate';
 
 function App() {
   const [csvData, setCsvData] = useState([]);
@@ -28,12 +32,21 @@ function App() {
   return (
     <div className="App">
       <div class="topnav">
-        <a href="#login">
+        <NavLink to="/account">Account</NavLink>
+        {/* <a href="#login">
           Login
-        </a>
-        <a href="#rate">Rate</a>
-        <a href="#browse" class="active">Browse</a>
+        </a> */}
+        <NavLink to="/rate">Rate</NavLink>
+        {/* <a href="#rate">Rate</a> */}
+        <NavLink to="/browse">Browse</NavLink>
+        {/* <a href="#browse" class="active">Browse</a> */}
       </div>
+      <Routes>
+          <Route index element={<Browse />} />
+          <Route path="/account" element={<Account />} />
+          <Route path="/browse" element={<Browse />} />
+          <Route path="/rate" element={<Rate />} />          
+      </Routes>
         <div>
           <h2>CSV Data:</h2>
           <ul>
