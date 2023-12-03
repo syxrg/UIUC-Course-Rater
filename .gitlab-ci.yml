@@ -31,8 +31,10 @@ deploy_to_app_engine:
   stage: deploy
   image: google/cloud-sdk:latest
   script:
-    - gcloud auth activate-service-account --key-file <(echo "$SERVICE_ACCOUNT")
+    - echo "$SERVICE_ACCOUNT" | base64 -d > /tmp/service-account.json
+    - gcloud auth activate-service-account --key-file=/tmp/service-account.json
     - gcloud config set project $GCP_PROJECT_ID
     - gcloud app deploy app.yaml --stop-previous-version
+    - rm /tmp/service-account.json
   only:
     - master
