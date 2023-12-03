@@ -38,4 +38,4 @@ deploy_to_app_engine:
     - gcloud app deploy app.yaml --stop-previous-version
     - rm /tmp/service-account.json
   only:
-    - master
+    - branches
