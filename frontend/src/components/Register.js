@@ -17,7 +17,6 @@ function Register() {
         console.log('User created successfully');
         window.location.href = "/";
       } else {
-        // Handle registration failure (e.g., show error message)
         alert('Registration failed');
       }
     } catch (error) {
