@@ -1,28 +1,53 @@
 const express = require('express');
 const path = require('path');
-const app = express();
-const port = process.env.PORT || 5000;
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
+const { SecretManagerServiceClient } = require('@google-cloud/secret-manager');
 require('dotenv').config();
+const app = express();
 app.use(express.json());
-
 const cors = require('cors');
 app.use(cors());
 
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE
-});
+const client = new SecretManagerServiceClient();
 
-db.connect(err => {
-  if (err) throw err;
-  console.log('Connected to the database!');
-});
+let db;
 
-// serves static files from the React app
+async function accessSecretVersion(secretName) {
+  const [version] = await client.accessSecretVersion({ name: secretName });
+  return version.payload.data.toString('utf8');
+}
+
+async function createDBConnection() {
+  let dbConfig;
+  if (process.env.NODE_ENV === 'production') {
+    const dbHost = await accessSecretVersion('projects/unique-alpha-407002/secrets/DB_HOST/versions/latest');
+    const dbUser = await accessSecretVersion('projects/unique-alpha-407002/secrets/DB_USER/versions/latest');
+    const dbPassword = await accessSecretVersion('projects/unique-alpha-407002/secrets/DB_PASSWORD/versions/latest');
+    const dbName = await accessSecretVersion('projects/unique-alpha-407002/secrets/DB_DATABASE/versions/latest');
+    dbConfig = { host: dbHost, user: dbUser, password: dbPassword, database: dbName };
+  } else {
+    dbConfig = {
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE
+    };
+  }
+  db = mysql.createConnection(dbConfig);
+  db.connect(err => {
+    if (err) throw err;
+    console.log('Connected to the database!');
+  });
+  return db;
+}
+
+async function main() {
+  await createDBConnection();
+}
+
+main();
+
 app.use(express.static(path.join(__dirname, 'build')));
 
 // add API routes here 
@@ -91,7 +116,7 @@ app.get('*', (req, res) => {
 });
 
 
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
-

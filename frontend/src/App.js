@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Routes, Route, NavLink, Navigate } from "react-router-dom";
+import { Routes, Route, NavLink, Navigate } from "react-router-dom";
 import './App.css';
 import Account from './components/Account';
 import Browse from './components/Browse';
