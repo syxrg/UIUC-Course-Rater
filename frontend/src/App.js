@@ -9,8 +9,11 @@ import Rate from './components/Rate';
 
 function App() {
   const [csvData, setCsvData] = useState([]);
+  const [backendMessage, setBackendMessage] = useState('');
+
   useEffect(() => {
-    const fetchData = async () => {
+    // Fetching CSV data
+    const fetchCSVData = async () => {
       const response = await fetch('/courses.csv');
       const reader = response.body.getReader();
       const result = await reader.read();
@@ -18,7 +21,6 @@ function App() {
 
       Papa.parse(text, {
         complete: function (result) {
-          // Parsed data in result.data
           console.log(result.data);
           setCsvData(result.data);
         },
@@ -26,40 +28,48 @@ function App() {
       });
     };
 
-    fetchData();
+    // Fetching data from backend
+    const fetchBackendData = async () => {
+      try {
+        const response = await fetch('/api');
+        const data = await response.json();
+        setBackendMessage(data.message);
+      } catch (error) {
+        console.error("Error fetching data from backend: ", error);
+      }
+    };
+
+    fetchCSVData();
+    fetchBackendData();
   }, []); 
 
   return (
     <div className="App">
-      <div class="topnav">
+      <div className="topnav">
         <NavLink exact to="/account">Account</NavLink>
-        {/* <a href="#login">
-          Login
-        </a> */}
         <NavLink to="/rate">Rate</NavLink>
-        {/* <a href="#rate">Rate</a> */}
         <NavLink to="/browse">Browse</NavLink>
-        {/* <a href="#browse" class="active">Browse</a> */}
       </div>
       <Routes>
-          <Route index element={<Browse />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/browse" element={<Browse />} />
-          <Route path="/rate" element={<Rate />} />          
+        <Route index element={<Browse />} />
+        <Route path="/account" element={<Account />} />
+        <Route path="/browse" element={<Browse />} />
+        <Route path="/rate" element={<Rate />} />
       </Routes>
-        <div>
-          <h2>CSV Data:</h2>
-          <ul>
-            {csvData.map((row, index) => (
-              <li key={index}>
-                {row.Name}
-              </li>
-            ))}
-          </ul>
-        </div>
+
+      <div>
+        <h2>CSV Data:</h2>
+        <ul>
+          {csvData.map((row, index) => (
+            <li key={index}>
+              {row.Name}
+            </li>
+          ))}
+        </ul>
+        <h2>Backend Message!!!:</h2>
+        <p>{backendMessage}</p>
+      </div>
     </div>
-    //test
-    // also testing
   );
 }
 

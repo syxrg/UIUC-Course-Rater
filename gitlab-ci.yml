@@ -1,27 +1,40 @@
 image: node:latest
 
-variables:
-  PUBLIC_URL: /mp2
-
-cache:
-  paths:
-  - node_modules
-
 stages:
+  - build
   - deploy
 
-pages:
-  stage: deploy
-
+build_frontend:
+  stage: build
   script:
-    - npm install        # Install all dependencies
-    - npm run build      # Build for prod
-    - mv public _public  # CRA and gitlab pages both use the public folder. Only do this in a build pipeline.
-    - mv build public    # Move build files to public dir for Gitlab Pages
-
+    - cd frontend
+    - npm install
+    - npm run build
   artifacts:
     paths:
-    - public
+      - frontend/build
+  only:
+    - master
 
+build_backend:
+  stage: build
+  script:
+    - cd backend
+    - npm install
+  artifacts:
+    paths:
+      - backend/
+  only:
+    - master
+
+deploy_to_app_engine:
+  stage: deploy
+  image: google/cloud-sdk:latest
+  script:
+    - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
+    - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
+    - gcloud config set project $GCP_PROJECT_ID
+    - gcloud app deploy app.yaml --stop-previous-version
+    - rm /tmp/$CI_PIPELINE_ID.json
   only:
     - master
