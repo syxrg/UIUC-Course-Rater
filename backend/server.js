@@ -21,10 +21,10 @@ async function accessSecretVersion(secretName) {
 async function createDBConnection() {
   let dbConfig;
   if (process.env.NODE_ENV === 'production') {
-    const dbHost = await accessSecretVersion('projects/unique-alpha-407002/secrets/DB_HOST/versions/latest');
-    const dbUser = await accessSecretVersion('projects/unique-alpha-407002/secrets/DB_USER/versions/latest');
-    const dbPassword = await accessSecretVersion('projects/unique-alpha-407002/secrets/DB_PASSWORD/versions/latest');
-    const dbName = await accessSecretVersion('projects/unique-alpha-407002/secrets/DB_DATABASE/versions/latest');
+    const dbHost = await accessSecretVersion('projects/563676754043/secrets/DB_HOST/versions/latest');
+    const dbUser = await accessSecretVersion('projects/563676754043/secrets/DB_USER/versions/latest');
+    const dbPassword = await accessSecretVersion('projects/563676754043/secrets/DB_PASSWORD/versions/latest');
+    const dbName = await accessSecretVersion('projects/563676754043/secrets/DB_DATABASE/versions/latest');
     dbConfig = { host: dbHost, user: dbUser, password: dbPassword, database: dbName };
   } else {
     dbConfig = {
