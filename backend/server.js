@@ -18,6 +18,7 @@ async function accessSecretVersion(secretName) {
   return version.payload.data.toString('utf8');
 }
 
+//????
 async function createDBConnection() {
   let dbConfig;
   if (process.env.NODE_ENV === 'production') {
