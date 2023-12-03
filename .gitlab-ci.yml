@@ -31,10 +31,8 @@ deploy_to_app_engine:
   stage: deploy
   image: google/cloud-sdk:latest
   script:
-    - echo $SERVICE_ACCOUNT > /tmp/$CI_PIPELINE_ID.json
-    - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
+    - gcloud auth activate-service-account --key-file <(echo "$SERVICE_ACCOUNT")
     - gcloud config set project $GCP_PROJECT_ID
     - gcloud app deploy app.yaml --stop-previous-version
-    - rm /tmp/$CI_PIPELINE_ID.json
   only:
     - master
