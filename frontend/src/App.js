@@ -4,6 +4,7 @@ import "./App.css";
 import Account from "./components/Account";
 import Browse from "./components/Browse";
 import Rate from "./components/Rate";
+import Class from './components/Class';
 import Login from "./components/Login";
 import Register from "./components/Register";
 
@@ -46,6 +47,7 @@ function App() {
             <Route path="/account" element={<Account />} />
             <Route path="/browse" element={<Browse />} />
             <Route path="/rate" element={<Rate />} />
+            <Route path="/class/:crn"  element={<Class />} />
           </Routes>
         </>
       ) : (
