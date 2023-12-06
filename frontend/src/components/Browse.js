@@ -62,6 +62,12 @@ const Browse = () => {
           container
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
+          style={{
+            paddingTop: "20px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
           {csvData
             .filter(
@@ -69,7 +75,21 @@ const Browse = () => {
                 self.findIndex((r) => r.Name === row.Name) === index
             )
             .map((row, index) => (
-              <Grid item xs={3} key={index}>
+              <Grid
+                item
+                xs={3}
+                key={index}
+                style={{
+                  border: "1px solid gray",
+                  borderRadius: "10px",
+                  padding: "10px",
+                  margin: "5px",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 {row.Subject} {row.Number} <br />
                 {row.Name}
               </Grid>
