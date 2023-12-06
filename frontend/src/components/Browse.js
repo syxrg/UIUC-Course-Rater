@@ -63,11 +63,6 @@ const Browse = () => {
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
-          {/* {csvData.map((row, index) => (
-            <Grid item xs={3} key={index}>
-              {row.Name}
-            </Grid>
-          ))} */}
           {csvData
             .filter(
               (row, index, self) =>
