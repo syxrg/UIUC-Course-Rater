@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Papa from "papaparse";
+import { Link } from "react-router-dom";
 
 import {
   Button,
@@ -12,10 +12,10 @@ import {
 
 import SearchIcon from "@mui/icons-material/Search";
 
-const Browse = () => {
-  const [csvData, setCsvData] = useState([]);
+const Browse = (props) => {
   const [query, setQuery] = useState("");
   const [buttonHoverStates, setButtonHoverStates] = useState({});
+  const data = props.data
 
   const handleMouseEnter = (index) => {
     setButtonHoverStates((prevStates) => ({
@@ -31,42 +31,42 @@ const Browse = () => {
     }));
   };
 
-  useEffect(() => {
-    // Fetching CSV data
-    const fetchCSVData = async () => {
-      try {
-        const response = await fetch("/courses.csv");
-        const reader = response.body.getReader();
-        const result = await reader.read();
-        const text = new TextDecoder("utf-8").decode(result.value);
+  // useEffect(() => {
+  //   // Fetching CSV data
+  //   const fetchCSVData = async () => {
+  //     try {
+  //       const response = await fetch("/courses.csv");
+  //       const reader = response.body.getReader();
+  //       const result = await reader.read();
+  //       const text = new TextDecoder("utf-8").decode(result.value);
 
-        Papa.parse(text, {
-          complete: function (result) {
-            console.log(result.data);
-            setCsvData(result.data);
-          },
-          header: true,
-        });
-      } catch (error) {
-        console.error("Error fetching CSV data: ", error);
-      }
-    };
+  //       Papa.parse(text, {
+  //         complete: function (result) {
+  //           console.log(result.data);
+  //           setCsvData(result.data);
+  //         },
+  //         header: true,
+  //       });
+  //     } catch (error) {
+  //       console.error("Error fetching CSV data: ", error);
+  //     }
+  //   };
 
-    fetchCSVData();
-  }, []);
+  //   fetchCSVData();
+  // }, []);
 
   //filter by search
-  //DOES NOT WORK RN
-  useEffect(() => {
-    //console.log(query)
-    if (query !== "") {
-      let newcsvData = [];
-      newcsvData = csvData.filter((x) => String(x.name).includes(query));
-      setCsvData(newcsvData);
-    } else {
-      setCsvData(csvData);
-    }
-  }, [query, csvData]);
+ // DOES NOT WORK RN
+  // useEffect(() => {
+  //   //console.log(query)
+  //   if (query !== "") {
+  //     let newcsvData = [];
+  //     newcsvData = data.filter((x) => String(x.name).includes(query));
+  //     setCsvData(newcsvData);
+  //   } else {
+  //     setCsvData(csvData);
+  //   }
+  // }, [query, csvData]);
 
   return (
     <div>
@@ -99,13 +99,14 @@ const Browse = () => {
             textAlign: "center",
           }}
         >
-          {csvData
+          {data
             .filter(
               (row, index, self) =>
                 self.findIndex((r) => r.Name === row.Name) === index
             )
             .map((row, index) => (
               <Grid item xs={3} key={index}>
+                <Link to={`/courses/${row.CRN}`}>
                 <button
                   style={{
                     padding: "20px",
@@ -121,6 +122,7 @@ const Browse = () => {
                   {row.Subject} {row.Number} <br />
                   {row.Name}
                 </button>
+                </Link>
               </Grid>
             ))}
         </Grid>

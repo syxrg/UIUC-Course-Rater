@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, NavLink, Navigate } from "react-router-dom";
+import Papa from "papaparse";
 import "./App.css";
 import Account from "./components/Account";
 import Browse from "./components/Browse";
@@ -12,6 +13,8 @@ function App() {
   const [backendMessage, setBackendMessage] = useState("");
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [csvData, setCsvData] = useState([]);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     const fetchBackendData = async () => {
@@ -24,7 +27,27 @@ function App() {
       }
     };
 
+    const fetchCSVData = async () => {
+      try {
+        const response = await fetch("/courses.csv");
+        const reader = response.body.getReader();
+        const result = await reader.read();
+        const text = new TextDecoder("utf-8").decode(result.value);
+
+        Papa.parse(text, {
+          complete: function (result) {
+            console.log(result.data);
+            setCsvData(result.data);
+          },
+          header: true,
+        });
+      } catch (error) {
+        console.error("Error fetching CSV data: ", error);
+      }
+    };
+
     fetchBackendData();
+    fetchCSVData();
   }, []);
 
   return (
@@ -45,9 +68,9 @@ function App() {
           <Routes>
             <Route index element={<Browse />} />
             <Route path="/account" element={<Account />} />
-            <Route path="/browse" element={<Browse />} />
+            <Route path="/browse" element={<Browse data={csvData}/>} />
             <Route path="/rate" element={<Rate />} />
-            <Route path="/class/:crn"  element={<Class />} />
+            <Route path="/courses/:crn"  element={<Class data={csvData}/>} />
           </Routes>
         </>
       ) : (
