@@ -63,11 +63,13 @@ const Browse = () => {
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
-          {csvData.map((row, index) => (
-            <Grid item xs={3} key={index}>
-              {row.Name}
-            </Grid>
-          ))}
+          {Array.from(new Set(csvData.map((row) => row.Name))).map(
+            (uniqueName, index) => (
+              <Grid item xs={3} key={index}>
+                {uniqueName}
+              </Grid>
+            )
+          )}
         </Grid>
       </ul>
     </div>
