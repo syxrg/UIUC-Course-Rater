@@ -15,6 +15,21 @@ import SearchIcon from "@mui/icons-material/Search";
 const Browse = () => {
   const [csvData, setCsvData] = useState([]);
   const [query, setQuery] = useState("");
+  const [buttonHoverStates, setButtonHoverStates] = useState({});
+
+  const handleMouseEnter = (index) => {
+    setButtonHoverStates((prevStates) => ({
+      ...prevStates,
+      [index]: true,
+    }));
+  };
+
+  const handleMouseLeave = (index) => {
+    setButtonHoverStates((prevStates) => ({
+      ...prevStates,
+      [index]: false,
+    }));
+  };
 
   useEffect(() => {
     // Fetching CSV data
@@ -57,7 +72,7 @@ const Browse = () => {
           style={{ width: 800 }}
         />
       </div>
-      <ul>
+      <ul style={{ listStyleType: "none", padding: "30px" }}>
         <Grid
           container
           spacing={{ xs: 2, md: 3 }}
@@ -67,6 +82,7 @@ const Browse = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            textAlign: "center",
           }}
         >
           {csvData
@@ -75,23 +91,22 @@ const Browse = () => {
                 self.findIndex((r) => r.Name === row.Name) === index
             )
             .map((row, index) => (
-              <Grid
-                item
-                xs={3}
-                key={index}
-                style={{
-                  border: "1px solid gray",
-                  borderRadius: "10px",
-                  padding: "10px",
-                  margin: "5px",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                {row.Subject} {row.Number} <br />
-                {row.Name}
+              <Grid item xs={3} key={index}>
+                <button
+                  style={{
+                    padding: "20px",
+                    height: "100%",
+                    width: "100%",
+                    border: "1px solid gray",
+                    borderRadius: "10px",
+                    background: buttonHoverStates[index] ? "#EBECF0" : "none",
+                  }}
+                  onMouseEnter={() => handleMouseEnter(index)}
+                  onMouseLeave={() => handleMouseLeave(index)}
+                >
+                  {row.Subject} {row.Number} <br />
+                  {row.Name}
+                </button>
               </Grid>
             ))}
         </Grid>
