@@ -60,7 +60,7 @@ const Browse = () => {
       <h1>Browse Classes Here</h1>
       <div className="search-stuff">
         <TextField
-          placeholder="Search for classes"
+          placeholder="Search by subject"
           onChange={(event) => setQuery(event.target.value)}
           InputProps={{
             startAdornment: (
