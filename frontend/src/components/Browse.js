@@ -63,13 +63,22 @@ const Browse = () => {
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
-          {Array.from(new Set(csvData.map((row) => row.Name))).map(
-            (uniqueName, index) => (
-              <Grid item xs={3} key={index}>
-                {uniqueName}
-              </Grid>
+          {/* {csvData.map((row, index) => (
+            <Grid item xs={3} key={index}>
+              {row.Name}
+            </Grid>
+          ))} */}
+          {csvData
+            .filter(
+              (row, index, self) =>
+                self.findIndex((r) => r.Name === row.Name) === index
             )
-          )}
+            .map((row, index) => (
+              <Grid item xs={3} key={index}>
+                {row.Subject} {row.Number} <br />
+                {row.Name}
+              </Grid>
+            ))}
         </Grid>
       </ul>
     </div>
