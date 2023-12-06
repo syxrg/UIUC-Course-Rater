@@ -1,32 +1,30 @@
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { Routes, Route, NavLink, Navigate } from "react-router-dom";
-import './App.css';
-import Account from './components/Account';
-import Browse from './components/Browse';
-import Rate from './components/Rate';
-import Login from './components/Login';
-import Register from './components/Register';
+import "./App.css";
+import Account from "./components/Account";
+import Browse from "./components/Browse";
+import Rate from "./components/Rate";
+import Login from "./components/Login";
+import Register from "./components/Register";
 
 function App() {
-  const [backendMessage, setBackendMessage] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const [backendMessage, setBackendMessage] = useState("");
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   useEffect(() => {
+    const fetchBackendData = async () => {
+      try {
+        const response = await fetch("/api");
+        const data = await response.json();
+        setBackendMessage(data.message);
+      } catch (error) {
+        console.error("Error fetching data from backend: ", error);
+      }
+    };
 
-  const fetchBackendData = async () => {
-    try {
-      const response = await fetch('/api');
-      const data = await response.json();
-      setBackendMessage(data.message);
-    } catch (error) {
-      console.error("Error fetching data from backend: ", error);
-    }
-  };
-
-  fetchBackendData();
-}, []); 
+    fetchBackendData();
+  }, []);
 
   return (
     <div className="App">
@@ -52,7 +50,10 @@ function App() {
         </>
       ) : (
         <Routes>
-          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route
+            path="/login"
+            element={<Login setIsLoggedIn={setIsLoggedIn} />}
+          />
           <Route path="/register" element={<Register />} />
           <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
