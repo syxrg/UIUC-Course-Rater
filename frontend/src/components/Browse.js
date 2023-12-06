@@ -55,6 +55,19 @@ const Browse = () => {
     fetchCSVData();
   }, []);
 
+  //filter by search
+  //DOES NOT WORK RN
+  useEffect(() => {
+    //console.log(query)
+    if (query !== "") {
+      let newcsvData = [];
+      newcsvData = csvData.filter((x) => String(x.name).includes(query));
+      setCsvData(newcsvData);
+    } else {
+      setCsvData(csvData);
+    }
+  }, [query, csvData]);
+
   return (
     <div>
       <h1>Browse Classes Here</h1>
@@ -62,6 +75,7 @@ const Browse = () => {
         <TextField
           placeholder="Search by subject"
           onChange={(event) => setQuery(event.target.value)}
+          value={query}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
