@@ -21,6 +21,7 @@ const Rate = () => {
               ></TextField>
             </Grid>
           </Grid>
+
           <Grid container item xs={6} direction="row">
             <Grid item>
               <text>When did you take this class?</text>
