@@ -1,21 +1,13 @@
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
-import {
-  Button,
-  Grid,
-  Switch,
-  FormControlLabel,
-  TextField,
-  InputAdornment,
-} from "@mui/material";
-
+import { Grid, InputAdornment, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 const Browse = (props) => {
   const [query, setQuery] = useState("");
   const [buttonHoverStates, setButtonHoverStates] = useState({});
-  const data = props.data
+  const data = props.data;
 
   const handleMouseEnter = (index) => {
     setButtonHoverStates((prevStates) => ({
@@ -56,7 +48,7 @@ const Browse = (props) => {
   // }, []);
 
   //filter by search
- // DOES NOT WORK RN
+  // DOES NOT WORK RN
   // useEffect(() => {
   //   //console.log(query)
   //   if (query !== "") {
@@ -83,6 +75,7 @@ const Browse = (props) => {
               </InputAdornment>
             ),
           }}
+          // change width of search bar
           style={{ width: 800 }}
         />
       </div>
@@ -107,21 +100,21 @@ const Browse = (props) => {
             .map((row, index) => (
               <Grid item xs={3} key={index}>
                 <Link to={`/courses/${row.CRN}`}>
-                <button
-                  style={{
-                    padding: "20px",
-                    height: "100%",
-                    width: "100%",
-                    border: "1px solid gray",
-                    borderRadius: "10px",
-                    background: buttonHoverStates[index] ? "#EBECF0" : "none",
-                  }}
-                  onMouseEnter={() => handleMouseEnter(index)}
-                  onMouseLeave={() => handleMouseLeave(index)}
-                >
-                  {row.Subject} {row.Number} <br />
-                  {row.Name}
-                </button>
+                  <button
+                    style={{
+                      padding: "20px",
+                      height: "100%",
+                      width: "100%",
+                      border: "1px solid gray",
+                      borderRadius: "10px",
+                      background: buttonHoverStates[index] ? "#EBECF0" : "none",
+                    }}
+                    onMouseEnter={() => handleMouseEnter(index)}
+                    onMouseLeave={() => handleMouseLeave(index)}
+                  >
+                    {row.Subject} {row.Number} <br />
+                    {row.Name}
+                  </button>
                 </Link>
               </Grid>
             ))}
