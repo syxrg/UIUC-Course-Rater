@@ -55,16 +55,21 @@ function App() {
       {isLoggedIn ? (
         <>
           <div className="topnav">
-            <NavLink to="/profile" exact>
-              Profile
+          <span className="title" href="#">Rate My Courses</span>
+          <div className="tab">
+            <NavLink to="/browse" exact>
+              Browse
             </NavLink>
             <NavLink to="/rate" exact>
               Rate
             </NavLink>
-            <NavLink to="/browse" exact>
-              Browse
+            <NavLink to="/profile" exact>
+              Profile
             </NavLink>
           </div>
+          
+          </div>
+          <div className="navLine" />
           <Routes>
             <Route index element={<Browse />} />
             <Route path="/profile" element={<Profile />} />
