@@ -1,12 +1,17 @@
 import "./Rate.css";
-import { FormControlLabel, Grid, RadioGroup, TextField } from "@mui/material";
+import {
+  FormControlLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+  Rating,
+  TextField,
+} from "@mui/material";
 
 const Rate = () => {
   return (
     <div>
-      <h1>Rate Your Course</h1>
-
-      <h2 class="alignLeft">Course Name</h2>
+      <h1 class="alignLeft">Course Name</h1>
       <Grid container direction="column">
         <Grid container item direction="column" marginBottom="15px">
           <Grid item marginBottom="8px">
@@ -40,8 +45,16 @@ const Rate = () => {
           <Grid item marginBottom="8px">
             <text>Easy A?</text>
           </Grid>
-          <Grid item>
-            <TextField id="easy-a-yes-no" select />
+
+          <Grid item className="radio-group">
+            <RadioGroup
+              aria-labelledby="easy-a-buttons-group-label"
+              name="easy-a-buttons-group"
+              row
+            >
+              <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+              <FormControlLabel value="no" control={<Radio />} label="No" />
+            </RadioGroup>
           </Grid>
         </Grid>
 
@@ -67,17 +80,30 @@ const Rate = () => {
           <Grid item>
             <TextField
               id="estimated-hours"
-              helperText="Please type your estimate time commitment"
+              helperText="Please type your estimated time commitment"
             />
           </Grid>
         </Grid>
 
-        <Grid container item direction="column" marginBottom="15px">
+        <Grid
+          container
+          item
+          direction="column"
+          marginBottom="15px"
+          className="radio-group"
+        >
           <Grid item marginBottom="8px">
             <text>Is this course well taught?</text>
           </Grid>
           <Grid item>
-            <TextField id="well-taught-yes-no" select />
+            <RadioGroup
+              aria-labelledby="easy-a-buttons-group-label"
+              name="easy-a-buttons-group"
+              row
+            >
+              <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+              <FormControlLabel value="no" control={<Radio />} label="No" />
+            </RadioGroup>
           </Grid>
         </Grid>
 
@@ -86,7 +112,14 @@ const Rate = () => {
             <text>How fun is this course?</text>
           </Grid>
           <Grid item>
-            <TextField id="fun-stars" select />
+            <center>
+              <Rating
+                name="fun-rating"
+                defaultValue={0}
+                precision={0.5}
+                size="large"
+              />
+            </center>
           </Grid>
         </Grid>
 
@@ -95,7 +128,14 @@ const Rate = () => {
             <text>How would you rate this course overall?</text>
           </Grid>
           <Grid item>
-            <TextField id="overall-stars" select />
+            <center>
+              <Rating
+                name="overall-rating"
+                defaultValue={0}
+                precision={0.5}
+                size="large"
+              />
+            </center>
           </Grid>
         </Grid>
       </Grid>

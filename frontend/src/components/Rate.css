@@ -2,4 +2,10 @@
     text-align: left;
     margin-left: 25px;
   }
+
+  .radio-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   
