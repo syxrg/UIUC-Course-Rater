@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route, NavLink, Navigate } from "react-router-dom";
 import Papa from "papaparse";
 import "./App.css";
-import Account from "./components/Account";
+import Profile from "./components/Profile";
 import Browse from "./components/Browse";
 import Rate from "./components/Rate";
 import Class from './components/Class';
@@ -55,8 +55,8 @@ function App() {
       {isLoggedIn ? (
         <>
           <div className="topnav">
-            <NavLink to="/account" exact>
-              Account
+            <NavLink to="/profile" exact>
+              Profile
             </NavLink>
             <NavLink to="/rate" exact>
               Rate
@@ -67,7 +67,7 @@ function App() {
           </div>
           <Routes>
             <Route index element={<Browse />} />
-            <Route path="/account" element={<Account />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/browse" element={<Browse data={csvData}/>} />
             <Route path="/rate" element={<Rate />} />
             <Route path="/courses/:crn"  element={<Class data={csvData}/>} />
