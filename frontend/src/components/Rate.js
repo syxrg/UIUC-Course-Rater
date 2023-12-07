@@ -1,56 +1,244 @@
 import "./Rate.css";
-import { FormControlLabel, Grid, RadioGroup, TextField } from "@mui/material";
+import {
+  FormControlLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+  Rating,
+  TextField,
+} from "@mui/material";
 
 const Rate = () => {
   return (
     <div>
-      <h1>Rate Your Course</h1>
-
-      <h2 class="alignLeft">Course Name</h2>
-      <Grid container>
-        <Grid container item xs={6} direction="column" paddingLeft="25px">
-          <Grid container item xs={6} direction="row">
-            <Grid item>
-              <text>Select professor</text>
-            </Grid>
-            <Grid item alignContent="right" marginLeft="50px">
-              <TextField
-                id="select-prof"
-                select
-                helperText="Please select your professor"
-              ></TextField>
-            </Grid>
+      <br></br>
+      <h1 class="align-left">Course Name</h1>
+      <br></br>
+      <Grid container direction="column" className="center-stuff">
+        <Grid
+          container
+          item
+          direction="column"
+          marginBottom="25px"
+          style={{
+            padding: "20px",
+            height: "100%",
+            width: "70%",
+            border: "1px solid #C9C7C6",
+            borderRadius: "10px",
+            boxShadow: "5px 5px 5px #C9C7C6",
+          }}
+        >
+          <Grid item marginBottom="8px" className="align-left">
+            <text>Select your professor</text>
           </Grid>
-
-          <Grid container item xs={6} direction="row">
-            <Grid item>
-              <text>When did you take this class?</text>
-            </Grid>
-            <Grid item alignContent="right" marginLeft="50px">
-              <TextField
-                id="select-term"
-                select
-                helperText="Please select your term"
-              ></TextField>
-            </Grid>
+          <Grid item>
+            <TextField
+              id="select-prof"
+              select
+              helperText="Please select your professor"
+              size="small"
+            />
           </Grid>
         </Grid>
 
         <Grid
           container
           item
-          xs={6}
           direction="column"
-          paddingLeft="25px"
-          paddingRight="25px"
+          marginBottom="25px"
+          style={{
+            padding: "20px",
+            height: "100%",
+            width: "70%",
+            border: "1px solid #C9C7C6",
+            borderRadius: "10px",
+            boxShadow: "5px 5px 5px #C9C7C6",
+          }}
         >
-          <TextField
-            id="review-text"
-            label="Your Review"
-            multiline
-            rows={4}
-            placeholder="Type your review here"
-          />
+          <Grid item marginBottom="8px" className="align-left">
+            <text>When did you take this class?</text>
+          </Grid>
+          <Grid item>
+            <TextField
+              id="select-term"
+              select
+              helperText="Please select your term"
+              size="small"
+            />
+          </Grid>
+        </Grid>
+
+        <Grid
+          container
+          item
+          direction="column"
+          marginBottom="25px"
+          style={{
+            padding: "20px",
+            height: "100%",
+            width: "70%",
+            border: "1px solid #C9C7C6",
+            borderRadius: "10px",
+            boxShadow: "5px 5px 5px #C9C7C6",
+          }}
+        >
+          <Grid item marginBottom="8px" className="align-left">
+            <text>Easy A?</text>
+          </Grid>
+
+          <Grid item className="center-stuff">
+            <RadioGroup
+              aria-labelledby="easy-a-buttons-group-label"
+              name="easy-a-buttons-group"
+              row
+            >
+              <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+              <FormControlLabel value="no" control={<Radio />} label="No" />
+            </RadioGroup>
+          </Grid>
+        </Grid>
+
+        <Grid
+          container
+          item
+          direction="column"
+          marginBottom="25px"
+          style={{
+            padding: "20px",
+            height: "100%",
+            width: "70%",
+            border: "1px solid #C9C7C6",
+            borderRadius: "10px",
+            boxShadow: "5px 5px 5px #C9C7C6",
+          }}
+        >
+          <Grid item marginBottom="8px" className="align-left">
+            <text>Estimated hours per week?</text>
+          </Grid>
+          <Grid item>
+            <TextField
+              id="estimated-hours"
+              helperText="Please type your estimated time commitment"
+              size="small"
+            />
+          </Grid>
+        </Grid>
+
+        <Grid
+          container
+          item
+          direction="column"
+          marginBottom="25px"
+          style={{
+            padding: "20px",
+            height: "100%",
+            width: "70%",
+            border: "1px solid #C9C7C6",
+            borderRadius: "10px",
+            boxShadow: "5px 5px 5px #C9C7C6",
+          }}
+        >
+          <Grid item marginBottom="8px" className="align-left">
+            <text>Is this course well taught?</text>
+          </Grid>
+          <Grid item className="center-stuff">
+            <RadioGroup
+              aria-labelledby="easy-a-buttons-group-label"
+              name="easy-a-buttons-group"
+              row
+            >
+              <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+              <FormControlLabel value="no" control={<Radio />} label="No" />
+            </RadioGroup>
+          </Grid>
+        </Grid>
+
+        <Grid
+          container
+          item
+          direction="column"
+          marginBottom="25px"
+          style={{
+            padding: "20px",
+            height: "100%",
+            width: "70%",
+            border: "1px solid #C9C7C6",
+            borderRadius: "10px",
+            boxShadow: "5px 5px 5px #C9C7C6",
+          }}
+        >
+          <Grid item marginBottom="8px" className="align-left">
+            <text>How fun is this course?</text>
+          </Grid>
+          <Grid item>
+            <center>
+              <Rating
+                name="fun-rating"
+                defaultValue={0}
+                precision={0.5}
+                size="large"
+              />
+            </center>
+          </Grid>
+        </Grid>
+
+        <Grid
+          container
+          item
+          direction="column"
+          marginBottom="25px"
+          style={{
+            padding: "20px",
+            height: "100%",
+            width: "70%",
+            border: "1px solid #C9C7C6",
+            borderRadius: "10px",
+            boxShadow: "5px 5px 5px #C9C7C6",
+          }}
+        >
+          <Grid item marginBottom="8px" className="align-left">
+            <text>How would you rate this course overall?</text>
+          </Grid>
+          <Grid item>
+            <center>
+              <Rating
+                name="overall-rating"
+                defaultValue={0}
+                precision={0.5}
+                size="large"
+              />
+            </center>
+          </Grid>
+        </Grid>
+
+        <Grid
+          container
+          item
+          direction="column"
+          marginBottom="25px"
+          style={{
+            padding: "20px",
+            height: "100%",
+            width: "70%",
+            border: "1px solid #C9C7C6",
+            borderRadius: "10px",
+            boxShadow: "5px 5px 5px #C9C7C6",
+          }}
+        >
+          <Grid item marginBottom="8px" className="align-left">
+            <text>Write a review</text>
+          </Grid>
+          <Grid item>
+            <TextField
+              className="text-box"
+              id="review-text"
+              label="What do you want other students to know about this course?"
+              multiline
+              rows={6}
+              placeholder="Type your review here"
+            />
+          </Grid>
         </Grid>
       </Grid>
     </div>
