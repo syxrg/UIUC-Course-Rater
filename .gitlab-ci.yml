@@ -1,0 +1,41 @@
+image: node:latest
+
+stages:
+  - build
+  - deploy
+
+build_frontend:
+  stage: build
+  script:
+    - cd frontend
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - frontend/build
+  only:
+    - branches
+
+build_backend:
+  stage: build
+  script:
+    - cd backend
+    - npm install
+  artifacts:
+    paths:
+      - backend/
+  only:
+    - branches
+
+deploy_to_app_engine:
+  stage: deploy
+  image: google/cloud-sdk:latest
+  script:
+    - echo "$SERVICE_ACCOUNT" | base64 -d > /tmp/service-account.json
+    - gcloud auth activate-service-account --key-file=/tmp/service-account.json
+    - gcloud config set project $GCP_PROJECT_ID
+    - cd backend
+    - gcloud app deploy app.yaml --stop-previous-version
+    - rm /tmp/service-account.json
+  only:
+    - branches
