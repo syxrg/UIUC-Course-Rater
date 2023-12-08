@@ -1,4 +1,6 @@
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import {
   FormControlLabel,
   Grid,
@@ -32,13 +34,17 @@ const Class = (props) => {
               paddingRight: "50px",
             }}
           >
-            <h1>
+            <Link to="/browse">
+            <button className="returnMenu fa fa-arrow-left"></button>
+            </Link>
+          
+            <h1 className="courseTitle">
               {" "}
               {match.Subject} {match.Number}: {match.Name}
               <br />
               {match.CRN}
             </h1>
-            <div
+            <div className="rating"
               style={{
                 fontSize: "36px",
               }}
@@ -53,10 +59,10 @@ const Class = (props) => {
                 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
               ></link>
             </div>
-            <div style={{ paddingTop: "10px" }}>
+            <div className="description" style={{ paddingTop: "10px" }}>
               Description: {match.Description}
             </div>
-            <div
+            <div className="grids"
               style={{
                 border: "1px solid #BEBEBE",
                 borderRadius: "10px",
@@ -64,7 +70,7 @@ const Class = (props) => {
                 margin: "20px",
               }}
             >
-              <Grid
+              <Grid 
                 container
                 direction="row"
                 style={{ textAlign: "center", margin: "20px" }}

@@ -50,25 +50,30 @@
 
 /* Style the links inside the navigation bar */
 .topnav a {
-  float: right;
+  /* float: right; */
   color: #919191;
+  align-items: center;
   text-align: center;
-  padding: 14px 16px;
+  /* text-align: center; */
+  padding: 22px 16px;
   text-decoration: none;
   font-size: 17px;
   height: 70px ;
+  transition: all 0.3s ease;
 }
 
 /* Change the color of links on hover */
 .topnav a:hover {
-  background-color: #ddd;
-  color: black;
+  /* background-color: #ddd; */
+  color: #7360ff;
+  cursor: pointer;
 }
 
 /* Add a color to the active/current link */
 .topnav a.active {
-  background-color: #ddd;
+  /* background-color: #ddd; */
   color: #7360ff;
+  border-bottom: 5px solid #7360ff;
 }
 .navLine {
   position: absolute;

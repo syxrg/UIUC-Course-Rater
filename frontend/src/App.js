@@ -15,6 +15,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [csvData, setCsvData] = useState([]);
   const [query, setQuery] = useState("");
+  
 
   useEffect(() => {
     const fetchBackendData = async () => {

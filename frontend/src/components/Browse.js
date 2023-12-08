@@ -1,8 +1,10 @@
+
 // import React, { useEffect, useState } from "react";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Grid, InputAdornment, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import "./Browse.css";
 
 const Browse = (props) => {
   const [query, setQuery] = useState("");
@@ -61,8 +63,8 @@ const Browse = (props) => {
   // }, [query, csvData]);
 
   return (
-    <div>
-      <h1>Browse Classes Here</h1>
+    <div className="outer">
+      <h1>Find a Course</h1>
       <div className="search-stuff">
         <TextField
           placeholder="Search by subject"
@@ -80,7 +82,7 @@ const Browse = (props) => {
         />
       </div>
       <ul style={{ listStyleType: "none", padding: "30px" }}>
-        <Grid
+        <Grid 
           container
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
@@ -99,14 +101,16 @@ const Browse = (props) => {
             .map((row, index) => (
               <Grid item xs={3} key={index}>
                 <Link to={`/courses/${row.CRN}`}>
-                  <button
+                  <button className="grid"
                     style={{
                       padding: "20px",
                       height: "100%",
                       width: "100%",
-                      border: "1px solid gray",
+                      border: buttonHoverStates[index] ? "1px solid light-gray" : "1px solid gray",
                       borderRadius: "10px",
-                      background: buttonHoverStates[index] ? "#EBECF0" : "none",
+                      background: "none",
+                      boxShadow: buttonHoverStates[index] ? "5px 5px 5px #C9C7C6" : "none",
+                      // background: buttonHoverStates[index] ? "#EBECF0" : "none",
                     }}
                     onMouseEnter={() => handleMouseEnter(index)}
                     onMouseLeave={() => handleMouseLeave(index)}
