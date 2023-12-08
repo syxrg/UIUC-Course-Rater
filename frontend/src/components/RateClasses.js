@@ -6,7 +6,7 @@ import { Grid, InputAdornment, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import "./Browse.css";
 
-const Browse = (props) => {
+const RateClasses = (props) => {
   const [query, setQuery] = useState("");
   const [buttonHoverStates, setButtonHoverStates] = useState({});
   const data = props.data;
@@ -100,7 +100,7 @@ const Browse = (props) => {
             )
             .map((row, index) => (
               <Grid item xs={3} key={index}>
-                <Link to={`/browse/${row.CRN}`}>
+                <Link to={`/rate/${row.CRN}`}>
                   <button className="grid"
                     style={{
                       padding: "20px",
@@ -127,4 +127,4 @@ const Browse = (props) => {
   );
 };
 
-export default Browse;
+export default RateClasses;

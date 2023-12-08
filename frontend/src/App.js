@@ -5,6 +5,7 @@ import "./App.css";
 import Profile from "./components/Profile";
 import Browse from "./components/Browse";
 import Rate from "./components/Rate";
+import RateClasses from "./components/RateClasses";
 import Class from './components/Class';
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -75,8 +76,9 @@ function App() {
             <Route index element={<Browse />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/browse" element={<Browse data={csvData}/>} />
-            <Route path="/rate" element={<Rate />} />
-            <Route path="/courses/:crn"  element={<Class data={csvData}/>} />
+            <Route path="/browse/:crn"  element={<Class data={csvData}/>} />
+            <Route path="/rate" element={<RateClasses data={csvData}/>} />
+            <Route path="/rate/:crn"  element={<Rate data={csvData}/>} />
           </Routes>
         </>
       ) : (

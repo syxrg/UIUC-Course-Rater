@@ -8,11 +8,29 @@ import {
   TextField,
 } from "@mui/material";
 
-const Rate = () => {
+import { useParams } from "react-router-dom";
+
+const Rate = (props) => {
+  const routeParams = useParams();
+  const csvData = props.data;
+
+  const findClassByCRN = (array, crn) => {
+    return array.find((element) => {
+      return element.CRN === crn;
+    });
+  };
+
+  const match = findClassByCRN(csvData, routeParams.crn);
+  console.log(match);
   return (
     <div>
       <br></br>
-      <h1 class="align-left">Course Name</h1>
+      <h1 className="courseTitle">
+              {" "}
+              {match.Subject} {match.Number}: {match.Name}
+              <br />
+              {match.CRN}
+            </h1>
       <br></br>
       <Grid container direction="column" className="center-stuff">
         <Grid
