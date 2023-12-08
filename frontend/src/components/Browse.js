@@ -101,7 +101,7 @@ const Browse = (props) => {
             )
             .map((row, index) => (
               <Grid item xs={3} key={index}>
-                <Link to={`/browse/${row.CRN}`}>
+                <Link to={`/${props.page}/${row.CRN}`}>
                   <button className="grid"
                     style={{
                       padding: "20px",
