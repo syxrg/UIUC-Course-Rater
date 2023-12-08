@@ -12,8 +12,7 @@ import Register from "./components/Register";
 
 function App() {
   const [backendMessage, setBackendMessage] = useState("");
-  // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [csvData, setCsvData] = useState([]);
   const [query, setQuery] = useState("");
   
