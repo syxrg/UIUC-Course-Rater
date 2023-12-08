@@ -32,28 +32,46 @@ function Register() {
   
 
   return (
-    <div>
-      <h2>Register</h2>
+<div>
+      <h2 style={{ padding: "20px", fontSize: "40px" }}>Create an Account</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Username"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        <button type="submit">Register</button>
+        <section>
+          <div class="form__group field">
+            <input
+              type="text"
+              class="form__field"
+              placeholder="Username"
+              name="name"
+              id="name"
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <label for="name" class="form__label">
+              Username
+            </label>
+          </div>
+          <div class="form__group field">
+            <input
+              type="password"
+              class="form__field"
+              placeholder="Password"
+              name="password"
+              id="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <label for="name" class="form__label">
+              Password
+            </label>
+          </div>
+        </section>
+        <br />
+        <button class="login-button" type="submit">
+          Continue
+        </button>
       </form>
-      <p>
-      Already have an account? <Link to="/login">Login!</Link>
-    </p>
     </div>
   );
 }

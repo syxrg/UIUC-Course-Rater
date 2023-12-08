@@ -8,8 +8,6 @@ function Login({ setIsLoggedIn }) {
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
-    // So Serlina hv access to edit
-    setIsLoggedIn(true);
 
     e.preventDefault();
     try {
