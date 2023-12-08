@@ -386,7 +386,7 @@ const Rate = (props) => {
               aria-labelledby="easy-a-buttons-group-label"
               name="easy-a-buttons-group"
               row
-              value={courseWellTaught}
+              value={handleWellTaught}
               onChange={handleCourseWellTaughtChange}
             >
               <FormControlLabel value="yes" control={<Radio />} label="Yes" />
