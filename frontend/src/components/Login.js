@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-
+import "./Login.css";
 
 function Login({ setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -21,8 +21,8 @@ function Login({ setIsLoggedIn }) {
       console.log("Login response:", response);
 
       if (response.ok) {
-        localStorage.setItem("isLoggedIn", "true"); 
-        localStorage.setItem("username", username); 
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("username", username);
         setIsLoggedIn(true);
         navigate("/browse");
       } else {
@@ -35,27 +35,48 @@ function Login({ setIsLoggedIn }) {
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2 style={{ padding: "20px", fontSize: "40px" }}>Rate My Courses</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Username"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        <button type="submit">Login</button>
+        <section>
+          <div class="form__group field">
+            <input
+              type="text"
+              class="form__field"
+              placeholder="Username"
+              name="name"
+              id="name"
+              required
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <label for="name" class="form__label">
+              Username
+            </label>
+          </div>
+          <div class="form__group field">
+            <input
+              type="password"
+              class="form__field"
+              placeholder="Password"
+              name="password"
+              id="password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <label for="name" class="form__label">
+              Password
+            </label>
+          </div>
+        </section>
+        <br />
+        <p style={{ padding: "10px", fontSize: "12px" }}>
+          Don't have an account? <Link to="/register">Create an account</Link>
+        </p>
+        <button class="button-34" type="submit">
+          Login
+        </button>
       </form>
-      <p>
-      Don't have an account? <Link to="/register">Create an account</Link>
-    </p>
     </div>
   );
 }
