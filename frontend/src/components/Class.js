@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import 'font-awesome/css/font-awesome.min.css';
 
 
 import {
