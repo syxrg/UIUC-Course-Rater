@@ -51,8 +51,9 @@ const Profile = ({ handleLogout }) => {
           <div className="content_box">{contents[activeTabIndex]}</div>
         </div>
       </div>
-      <div>
       <button className="logoutButton" onClick={handleLogout}>Logout</button>
+
+      <div>
     </div>
     </div>
   );

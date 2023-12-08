@@ -1,13 +1,12 @@
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import 'font-awesome/css/font-awesome.min.css';
+
 
 import {
-  FormControlLabel,
   Grid,
-  Radio,
-  RadioGroup,
   Rating,
-  TextField,
 } from "@mui/material";
 import "./Class.css";
 
@@ -15,6 +14,16 @@ const Class = (props) => {
   const routeParams = useParams();
   const csvData = props.data;
 
+
+  const { crn } = useParams();
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    fetch(`/api/reviews/${crn}`)
+      .then(response => response.json())
+      .then(data => setReviews(data))
+      .catch(error => console.error('Error fetching reviews:', error));
+  }, [crn]);
   const findClassByCRN = (array, crn) => {
     return array.find((element) => {
       return element.CRN === crn;
@@ -25,121 +34,72 @@ const Class = (props) => {
   console.log(match);
   return (
     <div className="App">
-      {match ? (
+      {match && (
         <>
-          <div
-            style={{
-              textAlign: "left",
-              paddingLeft: "50px",
-              paddingRight: "50px",
-            }}
-          >
+          <div style={{ textAlign: 'left', paddingLeft: '50px', paddingRight: '50px' }}>
             <Link to="/browse">
             <button className="returnMenu fa fa-arrow-left"></button>
             </Link>
-          
+
+            
             <h1 className="courseTitle">
-              {" "}
               {match.Subject} {match.Number}: {match.Name}
               <br />
               {match.CRN}
             </h1>
-            <div className="rating"
-              style={{
-                fontSize: "36px",
-              }}
-            >
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star checked"></span>
-              <span class="fa fa-star"></span>
-              <span class="fa fa-star"></span>
-              <link
-                rel="stylesheet"
-                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-              ></link>
-            </div>
-            <div className="description" style={{ paddingTop: "10px" }}>
+            <div className="description" style={{ paddingTop: '10px' }}>
               Description: {match.Description}
             </div>
-            <div className="grids"
-              style={{
-                border: "1px solid #BEBEBE",
-                borderRadius: "10px",
-                height: "100px",
-                margin: "20px",
-              }}
-            >
-              <Grid 
-                container
-                direction="row"
-                style={{ textAlign: "center", margin: "20px" }}
-              >
-                <Grid item xs={2} direction="column">
-                  <div
-                    style={{
-                      borderRadius: "10px",
-                      border: "1px solid #808080",
-                    }}
-                  >
-                    Yes
-                  </div>
+
+            <Link to={`/rate/${match.CRN}`} className="rateButton">
+            Rate this course!
+          </Link>
+
+            {reviews.map((review, index) => (
+              <div key={index} className="review-grid" style={{ border: '1px solid #BEBEBE', borderRadius: '10px', margin: '20px' }}>
+                <Grid container direction="row" style={{ textAlign: 'center', margin: '20px' }}>
+                  
+                <Grid item xs={12} style={{ marginBottom: '10px' }}>
+                    <strong>Review by:</strong> {review.username} <br />
+                    <strong>Professor:</strong> {review.professor} <br />
+                    <strong>Term:</strong> {review.term} <br />
+                    <strong>Submitted on:</strong> {new Date(review.created_at).toLocaleDateString()}
+                  </Grid>
+
+                  <Grid item xs={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                   <div>Easy A?</div>
-                </Grid>
-                <Grid item xs={2} direction="column">
-                  <div
-                    style={{
-                      borderRadius: "10px",
-                      border: "1px solid #808080",
-                    }}
-                  >
-                    10
-                  </div>
+
+                    <div>{review.easy_a}</div>
+                  </Grid>
+                  <Grid item xs={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                   <div>Estimated hrs/week</div>
-                </Grid>
-                <Grid item xs={2} direction="column">
-                  <div
-                    style={{
-                      borderRadius: "10px",
-                      border: "1px solid #808080",
-                    }}
-                  >
-                    Yes
-                  </div>
+
+                    <div>{review.hours_per_week}</div>
+                  </Grid>
+                  <Grid item xs={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                   <div>Well taught?</div>
-                </Grid>
-                <Grid item xs={2} direction="column">
-                  <div
-                    style={{
-                      borderRadius: "10px",
-                      border: "1px solid #808080",
-                    }}
-                  >
-                    4/5
-                  </div>
+
+                    <div>{review.course_well_taught}</div>
+                  </Grid>
+                  <Grid item xs={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                   <div>Fun?</div>
-                </Grid>
-                <Grid item xs={2} direction="column">
-                  <div
-                    style={{
-                      borderRadius: "10px",
-                      border: "1px solid #808080",
-                    }}
-                  >
-                    4/5
-                  </div>
+
+                    <Rating value={parseFloat(review.fun_rating)} readOnly />
+                  </Grid>
+                  <Grid item xs={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                   <div>Overall</div>
+
+                    <Rating value={parseFloat(review.overall_rating)} readOnly />
+                  </Grid>
+                  <Grid item xs={2} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <div>Comments</div>
+                    <div>{review.comments}</div>
+                  </Grid>
                 </Grid>
-                <Grid item xs={2} direction="column">
-                  <div>A+</div>
-                  <div>Grade Received</div>
-                </Grid>
-              </Grid>
-            </div>
+              </div>
+            ))}
           </div>
         </>
-      ) : (
-        <></>
       )}
     </div>
   );

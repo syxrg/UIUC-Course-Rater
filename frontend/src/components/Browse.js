@@ -26,11 +26,9 @@ const Browse = (props) => {
     }));
   };
 
-
   const handleSearchChange = (event) => {
     setQuery(event.target.value.toLowerCase());
   };
-
   
   const sortData = (a, b) => {
     if (trimmedQuery) {
@@ -51,14 +49,20 @@ const Browse = (props) => {
 
   const trimmedQuery = query.trim().toLowerCase();
 
-  const filteredData = data
-    .filter(
-      (row) =>
-      row.Subject.toLowerCase().includes(trimmedQuery) ||
-      row.Number.toLowerCase().includes(trimmedQuery) ||
-      row.Name.toLowerCase().includes(trimmedQuery)
-    )
-    .sort(sortData);
+  const filteredData = query
+    ? data
+        .filter(
+          (row) =>
+            row.Subject.toLowerCase().includes(trimmedQuery) ||
+            row.Number.toLowerCase().includes(trimmedQuery) ||
+            row.Name.toLowerCase().includes(trimmedQuery)
+        )
+        .reduce((unique, row) => {
+          return unique.some((u) => u.CRN === row.CRN) ? unique : [...unique, row];
+        }, [])
+        .sort(sortData)
+    : data;
+
 
   return (
     <div className="outer">
@@ -91,6 +95,10 @@ const Browse = (props) => {
           }}
         >
           {filteredData
+            .filter(
+              (row, index, self) =>
+                self.findIndex((r) => r.Name === row.Name) === index
+            )
             .map((row, index) => (
               <Grid item xs={3} key={index}>
                 <Link to={`/browse/${row.CRN}`}>

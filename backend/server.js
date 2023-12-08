@@ -119,6 +119,31 @@ createDBConnection()
       });
     });
 
+    app.post('/api/reviews', (req, res) => {
+      const review = req.body;
+      const sql = 'INSERT INTO course_reviews SET ?';
+  
+      db.query(sql, review, (err, result) => {
+          if (err) throw err;
+          console.log('Review added', result);
+          res.send('Review added successfully');
+      });
+  });
+
+
+  app.get('/api/reviews/:crn', (req, res) => {
+    const { crn } = req.params;
+    const sql = 'SELECT * FROM course_reviews WHERE crn = ?';
+    db.query(sql, [crn], (err, result) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Error fetching reviews');
+        }
+        res.json(result);
+    });
+});
+
+
     //DONT REMOVE!!
     app.get("*", (req, res) => {
       res.sendFile(path.join(__dirname, "build", "index.html"));
