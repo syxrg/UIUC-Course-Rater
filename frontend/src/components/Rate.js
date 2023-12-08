@@ -6,6 +6,8 @@ import {
   RadioGroup,
   Rating,
   TextField,
+  Button,
+  MenuItem
 } from "@mui/material";
 
 import { useParams } from "react-router-dom";
@@ -20,18 +22,34 @@ const Rate = (props) => {
     });
   };
 
+  const findProfs = (array, subject, number) => {
+    let temp = array.filter((element) => {
+      return (element.Subject === subject & element.Number == number);
+    });
+    let unique = []
+    temp.forEach(element => {
+      element.Instructors.split(";").forEach(prof => {
+        if (!unique.includes(prof)) {
+          unique.push(prof);
+        }
+      })
+    })
+    return unique
+  };
+
   const match = findClassByCRN(csvData, routeParams.crn);
+  const matches = findProfs(csvData, match.Subject, match.Number);
   console.log(match);
+  console.log(matches); 
+
   return (
     <div>
-      <br></br>
       <h1 className="courseTitle">
               {" "}
               {match.Subject} {match.Number}: {match.Name}
               <br />
               {match.CRN}
             </h1>
-      <br></br>
       <Grid container direction="column" className="center-stuff">
         <Grid
           container
@@ -56,7 +74,13 @@ const Rate = (props) => {
               select
               helperText="Please select your professor"
               size="small"
-            />
+            >
+              {matches.map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </TextField>
           </Grid>
         </Grid>
 
@@ -259,6 +283,7 @@ const Rate = (props) => {
           </Grid>
         </Grid>
       </Grid>
+      <Button>Submit Rating</Button>
     </div>
   );
 };

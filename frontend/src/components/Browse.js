@@ -10,6 +10,7 @@ const Browse = (props) => {
   const [query, setQuery] = useState("");
   const [buttonHoverStates, setButtonHoverStates] = useState({});
   const data = props.data;
+  console.log(data)
 
   const handleMouseEnter = (index) => {
     setButtonHoverStates((prevStates) => ({
