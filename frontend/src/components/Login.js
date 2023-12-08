@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+
 
 function Login({ setIsLoggedIn }) {
   const navigate = useNavigate();
@@ -20,8 +21,9 @@ function Login({ setIsLoggedIn }) {
       console.log("Login response:", response);
 
       if (response.ok) {
+        localStorage.setItem("isLoggedIn", "true"); 
+        localStorage.setItem("username", username); 
         setIsLoggedIn(true);
-        console.log("User logged in successfully");
         navigate("/browse");
       } else {
         console.error("Login failed! Wrong user or password");
@@ -51,6 +53,9 @@ function Login({ setIsLoggedIn }) {
         />
         <button type="submit">Login</button>
       </form>
+      <p>
+      Don't have an account? <Link to="/register">Create an account</Link>
+    </p>
     </div>
   );
 }

@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate, Link } from "react-router-dom";
+
 
 function Register() {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -10,12 +14,14 @@ function Register() {
       const response = await fetch('/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password})
+        body: JSON.stringify({ username, password })
       });
-
+  
       if (response.ok) {
         console.log('User created successfully');
-        window.location.href = "/";
+        localStorage.setItem("isLoggedIn", "true");  
+        localStorage.setItem("username", username); 
+        navigate("/browse");
       } else {
         alert('Registration failed');
       }
@@ -23,6 +29,7 @@ function Register() {
       console.error('There was an error during registration', error);
     }
   };
+  
 
   return (
     <div>
@@ -44,6 +51,9 @@ function Register() {
         />
         <button type="submit">Register</button>
       </form>
+      <p>
+      Already have an account? <Link to="/login">Login!</Link>
+    </p>
     </div>
   );
 }

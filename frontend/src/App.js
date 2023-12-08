@@ -11,23 +11,12 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 
 function App() {
-  const [backendMessage, setBackendMessage] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem("isLoggedIn") === "true");
   const [csvData, setCsvData] = useState([]);
   const [query, setQuery] = useState("");
   
 
   useEffect(() => {
-    const fetchBackendData = async () => {
-      try {
-        const response = await fetch("/api");
-        const data = await response.json();
-        setBackendMessage(data.message);
-      } catch (error) {
-        console.error("Error fetching data from backend: ", error);
-      }
-    };
-
     const fetchCSVData = async () => {
       try {
         const response = await fetch("/courses.csv");
@@ -47,53 +36,58 @@ function App() {
       }
     };
 
-    fetchBackendData();
     fetchCSVData();
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+  };
+  
+
   return (
     <div className="App">
-      {isLoggedIn ? (
-        <>
-          <div className="topnav">
-          <span className="title" href="#">Rate My Courses</span>
-          <div className="tab">
-            <NavLink to="/browse" exact>
-              Browse
-            </NavLink>
-            <NavLink to="/rate" exact>
-              Rate
-            </NavLink>
-            <NavLink to="/profile" exact>
-              Profile
-            </NavLink>
-          </div>
-          
-          </div>
-          <div className="navLine" />
-          <Routes>
-            <Route index element={<Browse />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/browse" element={<Browse data={csvData}/>} />
-            <Route path="/browse/:crn"  element={<Class data={csvData}/>} />
-            <Route path="/rate" element={<RateClasses data={csvData}/>} />
-            <Route path="/rate/:crn"  element={<Rate data={csvData}/>} />
-          </Routes>
-        </>
-      ) : (
-        <Routes>
-          <Route
-            path="/login"
-            element={<Login setIsLoggedIn={setIsLoggedIn} />}
-          />
-          <Route path="/register" element={<Register />} />
-          <Route path="*" element={<Navigate to="/login" />} />
-        </Routes>
-      )}
-      <div>
-        <h2>Backend Message!!!:</h2>
-        <p>{backendMessage}</p>
+      <div className="topnav">
+        {isLoggedIn && (
+          <>
+            <span className="title" href="#">Rate My Courses</span>
+            <div className="tab">
+              <NavLink to="/browse" exact>
+                Browse
+              </NavLink>
+              <NavLink to="/rate" exact>
+                Rate
+              </NavLink>
+              <NavLink to="/profile" exact>
+                Profile
+              </NavLink>
+            </div>
+          </>
+        )}
       </div>
+      <Routes>
+        <Route path="/login" element={!isLoggedIn ? <Login setIsLoggedIn={setIsLoggedIn} /> : <Navigate to="/browse" />} />
+        <Route path="/register" element={!isLoggedIn ? <Register setIsLoggedIn={setIsLoggedIn} /> : <Navigate to="/browse" />} />
+
+        {isLoggedIn ? (
+          <>
+            <Route index element={<Browse />} />
+            <Route path="/profile" element={<Profile handleLogout={handleLogout} />} />
+            <Route path="/browse" element={<Browse data={csvData}/>} />
+            <Route path="/browse/:crn" element={<Class data={csvData}/>} />
+            <Route path="/rate" element={<RateClasses data={csvData}/>} />
+            <Route path="/rate/:crn" element={<Rate data={csvData}/>} />
+          </>
+        ) : (
+          <Route path="*" element={<Navigate to="/login" />} />
+        )}
+
+        {isLoggedIn && (
+          <Route path="*" element={<Navigate to="/browse" />} />
+        )}
+      </Routes>
+
+
     </div>
   );
 }
