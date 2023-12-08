@@ -10,7 +10,7 @@ import {
   MenuItem
 } from "@mui/material";
 import React, { useState } from "react";
-
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 const Rate = (props) => {
@@ -27,6 +27,80 @@ const Rate = (props) => {
   const routeParams = useParams();
   const username = localStorage.getItem("username"); 
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const terms = [
+    {
+      value: '2023-sp',
+      label: 'Spring 2023',
+    },
+    {
+      value: '2022-fa',
+      label: 'Fall 2023',
+    },
+    {
+      value: '2022-sp',
+      label: 'Spring 2022',
+    },
+    {
+      value: '2022-fa',
+      label: 'Fall 2022',
+    },
+    {
+      value: '2021-sp',
+      label: 'Spring 2021',
+    },
+    {
+      value: '2021-fa',
+      label: 'Fall 2021',
+    },
+    {
+      value: '2020-sp',
+      label: 'Spring 2020',
+    },
+    {
+      value: '2020-fa',
+      label: 'Fall 2020',
+    },
+    {
+      value: '2019-sp',
+      label: 'Spring 2019',
+    },
+    {
+      value: '2019-fa',
+      label: 'Fall 2019',
+    },
+  ];
+
+  const times = [
+    {
+      value: '< 5',
+      label: '< 5',
+    },
+    {
+      value: '5',
+      label: '5',
+    },
+    {
+      value: '10',
+      label: '10',
+    },
+    {
+      value: '15',
+      label: '15',
+    },    
+    {
+      value: '20',
+      label: '20',
+    },
+    {
+      value: '25',
+      label: '25',
+    },
+    {
+      value: '> 25',
+      label: '> 25',
+    },
+  ]
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -142,13 +216,13 @@ const Rate = (props) => {
 
   return (
     <div>
-            
+          <Link to={`/browse/${match.CRN}`}>
             <h1 className="courseTitle">
               {match.Subject} {match.Number}: {match.Name}
               <br />
               {match.CRN}
             </h1>
-
+          </Link>
 
       <Grid container direction="column" className="center-stuff">
         <Grid
@@ -211,7 +285,13 @@ const Rate = (props) => {
               onChange={handleTermChange}
               helperText="Please select your term"
               size="small"
-            />
+            >
+              {terms.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
           </Grid>
         </Grid>
 
@@ -265,13 +345,22 @@ const Rate = (props) => {
             <text>Estimated hours per week?</text>
           </Grid>
           <Grid item>
+            <Grid item>
             <TextField
               id="estimated-hours"
-              helperText="Please type your estimated time commitment"
-              size="small"
+              select
               value={hoursPerWeek}
               onChange={handleHoursPerWeek}
-            />
+              helperText="Please select your estimated time commitment"
+              size="small"
+            >
+              {times.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
           </Grid>
         </Grid>
 
