@@ -8,6 +8,9 @@ function Login({ setIsLoggedIn }) {
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
+    // So Serlina hv access to edit
+    setIsLoggedIn(true);
+
     e.preventDefault();
     try {
       const response = await fetch("/login", {
@@ -73,7 +76,7 @@ function Login({ setIsLoggedIn }) {
         <p style={{ padding: "10px", fontSize: "12px" }}>
           Don't have an account? <Link to="/register">Create an account</Link>
         </p>
-        <button class="button-34" type="submit">
+        <button class="login-button" type="submit">
           Login
         </button>
       </form>
