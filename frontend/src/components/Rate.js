@@ -7,7 +7,7 @@ import {
   Rating,
   TextField,
   Button,
-  MenuItem
+  MenuItem,
 } from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -16,97 +16,97 @@ import { useParams } from "react-router-dom";
 const Rate = (props) => {
   const { crn } = useParams();
   const csvData = props.data;
-  const [professor, setProfessor] = useState('');
-  const [term, setTerm] = useState('');
-  const [easyA, setEasyA] = useState('');
-  const [hoursPerWeek, setHoursPerWeek] = useState('');
-  const [courseWellTaught, setCourseWellTaught] = useState('');
+  const [professor, setProfessor] = useState("");
+  const [term, setTerm] = useState("");
+  const [easyA, setEasyA] = useState("");
+  const [hoursPerWeek, setHoursPerWeek] = useState("");
+  const [courseWellTaught, setCourseWellTaught] = useState("");
   const [funRating, setFunRating] = useState(0);
   const [overallRating, setOverallRating] = useState(0);
-  const [comments, setComments] = useState('');
+  const [comments, setComments] = useState("");
   const routeParams = useParams();
-  const username = localStorage.getItem("username"); 
+  const username = localStorage.getItem("username");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const terms = [
     {
-      value: '2023-sp',
-      label: 'Spring 2023',
+      value: "2023-sp",
+      label: "Spring 2023",
     },
     {
-      value: '2022-fa',
-      label: 'Fall 2023',
+      value: "2022-fa",
+      label: "Fall 2023",
     },
     {
-      value: '2022-sp',
-      label: 'Spring 2022',
+      value: "2022-sp",
+      label: "Spring 2022",
     },
     {
-      value: '2022-fa',
-      label: 'Fall 2022',
+      value: "2022-fa",
+      label: "Fall 2022",
     },
     {
-      value: '2021-sp',
-      label: 'Spring 2021',
+      value: "2021-sp",
+      label: "Spring 2021",
     },
     {
-      value: '2021-fa',
-      label: 'Fall 2021',
+      value: "2021-fa",
+      label: "Fall 2021",
     },
     {
-      value: '2020-sp',
-      label: 'Spring 2020',
+      value: "2020-sp",
+      label: "Spring 2020",
     },
     {
-      value: '2020-fa',
-      label: 'Fall 2020',
+      value: "2020-fa",
+      label: "Fall 2020",
     },
     {
-      value: '2019-sp',
-      label: 'Spring 2019',
+      value: "2019-sp",
+      label: "Spring 2019",
     },
     {
-      value: '2019-fa',
-      label: 'Fall 2019',
+      value: "2019-fa",
+      label: "Fall 2019",
     },
   ];
 
   const times = [
     {
-      value: '< 5',
-      label: '< 5',
+      value: "< 5",
+      label: "< 5",
     },
     {
-      value: '5',
-      label: '5',
+      value: "5",
+      label: "5",
     },
     {
-      value: '10',
-      label: '10',
+      value: "10",
+      label: "10",
     },
     {
-      value: '15',
-      label: '15',
-    },    
-    {
-      value: '20',
-      label: '20',
+      value: "15",
+      label: "15",
     },
     {
-      value: '25',
-      label: '25',
+      value: "20",
+      label: "20",
     },
     {
-      value: '> 25',
-      label: '> 25',
+      value: "25",
+      label: "25",
     },
-  ]
+    {
+      value: "> 25",
+      label: "> 25",
+    },
+  ];
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const formData = {
-      username, 
+      username,
       crn,
       professor,
       term,
@@ -115,40 +115,39 @@ const Rate = (props) => {
       course_well_taught: courseWellTaught,
       fun_rating: funRating,
       overall_rating: overallRating,
-      comments
+      comments,
     };
 
     try {
-      const response = await fetch('/api/reviews', {
-        method: 'POST',
+      const response = await fetch("/api/reviews", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
       if (response.ok) {
-        setIsSubmitted(true); 
-        console.log('Review submitted successfully');
+        setIsSubmitted(true);
+        console.log("Review submitted successfully");
       } else {
-        console.error('Submission failed');
+        console.error("Submission failed");
       }
     } catch (error) {
-      console.error('Error submitting review:', error);
+      console.error("Error submitting review:", error);
     }
   };
 
   const handleProfessorChange = (event) => {
     setProfessor(event.target.value);
     console.log("Professor selected:", event.target.value);
-
   };
 
   const handleCourseWellTaughtChange = (event) => {
     setCourseWellTaught(event.target.value);
     console.log("Course Well Taught:", event.target.value);
   };
-  
+
   const handleEasyAChange = (event) => {
     setEasyA(event.target.value);
     console.log("Easy A:", event.target.value);
@@ -157,26 +156,22 @@ const Rate = (props) => {
   const handleHoursPerWeek = (event) => {
     setHoursPerWeek(event.target.value);
     console.log("Hours per week:", event.target.value);
-
-  }
+  };
 
   const handleComments = (event) => {
     setComments(event.target.value);
     console.log("Comments:", event.target.value);
-  }
+  };
 
   const handleWellTaught = (event) => {
     setCourseWellTaught(event.target.value);
     console.log("Well Taught?:", event.target.value);
-
-  }
+  };
 
   const handleTermChange = (event) => {
     setTerm(event.target.value);
     console.log("Term selected:", event.target.value);
-
   };
-
 
   const handleFunRatingChange = (newValue) => {
     setFunRating(newValue);
@@ -196,33 +191,37 @@ const Rate = (props) => {
 
   const findProfs = (array, subject, number) => {
     let temp = array.filter((element) => {
-      return (element.Subject === subject & element.Number == number);
+      return (element.Subject === subject) & (element.Number == number);
     });
-    let unique = []
-    temp.forEach(element => {
-      element.Instructors.split(";").forEach(prof => {
+    let unique = [];
+    temp.forEach((element) => {
+      element.Instructors.split(";").forEach((prof) => {
         if (!unique.includes(prof)) {
           unique.push(prof);
         }
-      })
-    })
-    return unique
+      });
+    });
+    return unique;
   };
 
   const match = findClassByCRN(csvData, routeParams.crn);
   const matches = findProfs(csvData, match.Subject, match.Number);
   console.log(match);
-  console.log(matches); 
+  console.log(matches);
 
   return (
     <div>
-          <Link to={`/browse/${match.CRN}`}>
-            <h1 className="courseTitle">
-              {match.Subject} {match.Number}: {match.Name}
-              <br />
-              {match.CRN}
-            </h1>
-          </Link>
+      <br />
+
+      <Link to={`/browse/${match.CRN}`}>
+        <h1 className="courseTitle">
+          {match.Subject} {match.Number}: {match.Name}
+          {/* <br />
+              {match.CRN} */}
+        </h1>
+      </Link>
+
+      <br />
 
       <Grid container direction="column" className="center-stuff">
         <Grid
@@ -346,21 +345,21 @@ const Rate = (props) => {
           </Grid>
           <Grid item>
             <Grid item>
-            <TextField
-              id="estimated-hours"
-              select
-              value={hoursPerWeek}
-              onChange={handleHoursPerWeek}
-              helperText="Please select your estimated time commitment"
-              size="small"
-            >
-              {times.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
+              <TextField
+                id="estimated-hours"
+                select
+                value={hoursPerWeek}
+                onChange={handleHoursPerWeek}
+                helperText="Please select your estimated time commitment"
+                size="small"
+              >
+                {times.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
           </Grid>
         </Grid>
 
@@ -450,7 +449,9 @@ const Rate = (props) => {
                 defaultValue={0}
                 precision={0.5}
                 value={overallRating}
-                onChange={(event, newValue) => handleOverallRatingChange(newValue)}
+                onChange={(event, newValue) =>
+                  handleOverallRatingChange(newValue)
+                }
                 size="large"
               />
             </center>
@@ -489,14 +490,21 @@ const Rate = (props) => {
         </Grid>
       </Grid>
       {isSubmitted ? (
-  <div className="submit-message">Your review has been submitted!</div>
-) : (
-<Button style={{ paddingBottom: '40px' }} onClick={handleSubmit}>
-  Submit Rating
-</Button>
-)}      
+        <div className="submit-message">Your review has been submitted!</div>
+      ) : (
+        <Button
+          variant="contained"
+          style={{
+            marginBottom: "40px",
+            color: "white",
+            backgroundColor: "#7360ff",
+          }}
+          onClick={handleSubmit}
+        >
+          Submit Rating
+        </Button>
+      )}
     </div>
-
   );
 };
 

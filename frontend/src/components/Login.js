@@ -8,7 +8,6 @@ function Login({ setIsLoggedIn }) {
   const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
     try {
       const response = await fetch("/login", {
@@ -72,7 +71,10 @@ function Login({ setIsLoggedIn }) {
         </section>
         <br />
         <p style={{ padding: "10px", fontSize: "12px" }}>
-          Don't have an account? <Link to="/register">Create an account</Link>
+          Don't have an account?{" "}
+          <Link to="/register" style={{ color: "#7360ff" }}>
+            Create an account
+          </Link>
         </p>
         <button class="login-button" type="submit">
           Login
