@@ -1,11 +1,14 @@
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 import {
   Grid,
   Rating,
+  Button,
+  IconButton,
 } from "@mui/material";
 import "./Class.css";
 
@@ -16,6 +19,7 @@ const Class = (props) => {
 
   const { crn } = useParams();
   const [reviews, setReviews] = useState([]);
+  const [bookmark, setBookmark] = useState(false);
 
   useEffect(() => {
     fetch(`/api/reviews/${crn}`)
@@ -23,11 +27,18 @@ const Class = (props) => {
       .then(data => setReviews(data))
       .catch(error => console.error('Error fetching reviews:', error));
   }, [crn]);
+
   const findClassByCRN = (array, crn) => {
     return array.find((element) => {
       return element.CRN === crn;
     });
   };
+
+  const handleBookmark = (event) => {
+    setBookmark(!bookmark)
+
+    // add code to update db
+  }
 
   const match = findClassByCRN(csvData, routeParams.crn);
   console.log(match);
@@ -42,17 +53,26 @@ const Class = (props) => {
 
             
             <h1 className="courseTitle">
-              {match.Subject} {match.Number}: {match.Name}
-              <br />
-              {match.CRN}
+              {match.Subject} {match.Number}: {match.Name} {bookmark ? (
+              <>
+                <IconButton onClick={handleBookmark} sx={{color: "#7360ff"}} ><BookmarkIcon fontSize="large"/></IconButton>
+                {/* <BookmarkIcon onClick={handleBookmark}/> */}
+              </>
+            ) : (
+              <>
+                <IconButton onClick={handleBookmark} sx={{color: "#7360ff"}}><BookmarkBorderIcon fontSize="large"/></IconButton>
+                {/* <BookmarkBorderIcon onClick={handleBookmark}/> */}
+              </>
+            )}
             </h1>
+
             <div className="description" style={{ paddingTop: '10px' }}>
               Description: {match.Description}
             </div>
 
-            <Link to={`/rate/${match.CRN}`} className="rateButton">
-            Rate this course!
-          </Link>
+            <Button variant="contained" ><Link to={`/rate/${match.CRN}`} className="rateButton">
+            Rate 	&#11106;
+            </Link></Button>
 
             {reviews.map((review, index) => (
               <div key={index} className="review-grid" style={{ border: '1px solid #BEBEBE', borderRadius: '10px', margin: '20px' }}>
