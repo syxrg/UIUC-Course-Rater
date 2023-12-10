@@ -61,7 +61,6 @@ const Class = (props) => {
                   >
                     <BookmarkIcon fontSize="large" />
                   </IconButton>
-                  {/* <BookmarkIcon onClick={handleBookmark}/> */}
                 </>
               ) : (
                 <>
@@ -71,7 +70,6 @@ const Class = (props) => {
                   >
                     <BookmarkBorderIcon fontSize="large" />
                   </IconButton>
-                  {/* <BookmarkBorderIcon onClick={handleBookmark}/> */}
                 </>
               )}
             </h1>
@@ -94,25 +92,27 @@ const Class = (props) => {
             </Button>
 
             {reviews.map((review, index) => (
-              <div
-                key={index}
-                className="review-grid"
-                style={{
-                  border: "1px solid #BEBEBE",
-                  borderRadius: "10px",
-                  margin: "20px",
-                }}
-              >
+              <div key={index} className="center-rating">
                 <Grid
                   container
                   direction="row"
                   style={{ textAlign: "center", margin: "20px" }}
                 >
-                  <Grid item xs={12} style={{ marginBottom: "10px" }}>
+                  <Grid
+                    item
+                    xs={6}
+                    style={{ marginBottom: "20px", textAlign: "left" }}
+                  >
                     <strong>Review by:</strong> {review.username} <br />
                     <strong>Professor:</strong> {review.professor} <br />
                     <strong>Term:</strong> {review.term} <br />
-                    <strong>Submitted on:</strong>{" "}
+                    <strong>Comments:</strong> {review.comments}
+                  </Grid>
+                  <Grid
+                    item
+                    xs={6}
+                    style={{ marginBottom: "20px", textAlign: "right" }}
+                  >
                     {new Date(review.created_at).toLocaleDateString()}
                   </Grid>
 
@@ -125,7 +125,7 @@ const Class = (props) => {
                       alignItems: "center",
                     }}
                   >
-                    <div>Easy A?</div>
+                    <div className="category-border">Easy A?</div>
 
                     <div>{review.easy_a}</div>
                   </Grid>
@@ -138,20 +138,7 @@ const Class = (props) => {
                       alignItems: "center",
                     }}
                   >
-                    <div>Estimated hrs/week</div>
-
-                    <div>{review.hours_per_week}</div>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={2}
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div>Well taught?</div>
+                    <div className="category-border">Well taught?</div>
 
                     <div>{review.course_well_taught}</div>
                   </Grid>
@@ -164,7 +151,20 @@ const Class = (props) => {
                       alignItems: "center",
                     }}
                   >
-                    <div>Fun?</div>
+                    <div className="category-border">Estimated hrs/week</div>
+
+                    <div>{review.hours_per_week}</div>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={2}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div className="category-border">Enjoyability</div>
 
                     <Rating value={parseFloat(review.fun_rating)} readOnly />
                   </Grid>
@@ -177,24 +177,12 @@ const Class = (props) => {
                       alignItems: "center",
                     }}
                   >
-                    <div>Overall</div>
+                    <div className="category-border">Overall</div>
 
                     <Rating
                       value={parseFloat(review.overall_rating)}
                       readOnly
                     />
-                  </Grid>
-                  <Grid
-                    item
-                    xs={2}
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div>Comments</div>
-                    <div>{review.comments}</div>
                   </Grid>
                 </Grid>
               </div>

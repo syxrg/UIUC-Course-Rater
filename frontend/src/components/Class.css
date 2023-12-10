@@ -1,50 +1,71 @@
 .returnMenu {
-    background-color: white; 
-    color: black; 
-    border: none;
-    padding: 10px;
-    margin-left: -45px;
-    padding-top: 25px;
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 10px;
+  margin-left: -45px;
+  padding-top: 25px;
 }
 
 .returnMenu:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .returnMenu.fa-arrow-left {
-    font-size: 50px;
-    /* padding: 2px; */
+  font-size: 50px;
 }
 
-
 .courseTitle {
-    margin-left: 25px;
-    padding-top: -25px;
-    display: flex;
-    align-items: center;
+  margin-left: 25px;
+  padding-top: -25px;
+  display: flex;
+  align-items: center;
 }
 
 .rating {
-    margin-left: 25px;
-    padding-top: 25px;
+  margin-left: 25px;
+  padding-top: 25px;
 }
 
 .align {
-    margin-left: 25px;
-    margin-top: 25px;
+  margin-left: 25px;
+  margin-top: 25px;
 }
 
-.grids{
-    margin-left: 25px;
-    padding-top: 15px;
-    text-align: center;
+.grids {
+  margin-left: 25px;
+  padding-top: 15px;
+  text-align: center;
 }
 
 .fa-star {
-    font-size: 30px;
-    padding: 2px;
+  font-size: 30px;
+  padding: 2px;
 }
 
 .checked {
-    color: orange;
-  }
+  color: orange;
+}
+
+.center-rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid #c9c7c6;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px #c9c7c6;
+  margin: 20px;
+  text-align: center;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.category-border {
+  /* color: white; */
+  /* background-color: #7360ff; */
+  border: 2px solid #7360ff;
+  color: #7360ff;
+  border-radius: 3px;
+  padding: 10px;
+}
