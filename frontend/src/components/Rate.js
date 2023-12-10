@@ -8,6 +8,8 @@ import {
   TextField,
   Button,
   MenuItem,
+  FormHelperText,
+  FormControl
 } from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -27,6 +29,9 @@ const Rate = (props) => {
   const routeParams = useParams();
   const username = localStorage.getItem("username");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [success, setSuccess] = useState(true);
+  const [easyAError, setEasyAError] = useState(false);
+  const [wellTaughtError, setWellTaughtError] = useState(false);
 
   const terms = [
     {
@@ -35,39 +40,39 @@ const Rate = (props) => {
     },
     {
       value: "2022-fa",
-      label: "Fall 2023",
+      label: "Fall 2022",
     },
     {
       value: "2022-sp",
       label: "Spring 2022",
     },
     {
-      value: "2022-fa",
-      label: "Fall 2022",
+      value: "2021-fa",
+      label: "Fall 2021",
     },
     {
       value: "2021-sp",
       label: "Spring 2021",
     },
     {
-      value: "2021-fa",
-      label: "Fall 2021",
+      value: "2020-fa",
+      label: "Fall 2020",
     },
     {
       value: "2020-sp",
       label: "Spring 2020",
     },
     {
-      value: "2020-fa",
-      label: "Fall 2020",
+      value: "2019-fa",
+      label: "Fall 2019",
     },
     {
       value: "2019-sp",
       label: "Spring 2019",
     },
     {
-      value: "2019-fa",
-      label: "Fall 2019",
+      value: "2018-fa",
+      label: "Fall 2018",
     },
   ];
 
@@ -117,24 +122,42 @@ const Rate = (props) => {
       overall_rating: overallRating,
       comments,
     };
-
-    try {
-      const response = await fetch("/api/reviews", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setIsSubmitted(true);
-        console.log("Review submitted successfully");
-      } else {
-        console.error("Submission failed");
+    
+    if (professor != "" & term  != "" & easyA != "" & hoursPerWeek != "" & courseWellTaught !=""){
+      try {
+        const response = await fetch("/api/reviews", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+  
+        if (response.ok) {
+          setIsSubmitted(true);
+          setSuccess(true);
+          console.log("Review submitted successfully");
+        } else {
+          console.error("Submission failed");
+        }
+      } catch (error) {
+        console.error("Error submitting review:", error);
       }
-    } catch (error) {
-      console.error("Error submitting review:", error);
+    }
+    else {
+      setSuccess(false)
+      if (!easyA) {
+        setEasyAError(true)
+      }
+      else {
+        setEasyAError(false)
+      }
+      if (!courseWellTaught) {
+        setWellTaughtError(true)
+      }
+      else {
+        setWellTaughtError(false)
+      }
     }
   };
 
@@ -243,6 +266,7 @@ const Rate = (props) => {
           </Grid>
           <Grid item>
             <TextField
+              error={!professor & !success}
               id="select-prof"
               select
               value={professor}
@@ -278,6 +302,7 @@ const Rate = (props) => {
           </Grid>
           <Grid item>
             <TextField
+              error={!term & !success}
               id="select-term"
               select
               value={term}
@@ -313,16 +338,20 @@ const Rate = (props) => {
           </Grid>
 
           <Grid item className="center-stuff">
-            <RadioGroup
-              aria-labelledby="easy-a-buttons-group-label"
-              name="easy-a-buttons-group"
-              row
-              value={easyA}
-              onChange={handleEasyAChange}
-            >
-              <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-              <FormControlLabel value="no" control={<Radio />} label="No" />
-            </RadioGroup>
+            <FormControl error={!easyA & easyAError}>
+              <RadioGroup
+                aria-labelledby="easy-a-buttons-group-label"
+                name="easy-a-buttons-group"
+                row
+                value={easyA}
+                onChange={handleEasyAChange}
+              >
+                <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+                <FormControlLabel value="no" control={<Radio />} label="No" />
+              </RadioGroup>
+              {!easyA & easyAError ? ( <FormHelperText>Please select an option.</FormHelperText> ) : (<FormHelperText></FormHelperText>) } 
+
+            </FormControl>
           </Grid>
         </Grid>
 
@@ -346,6 +375,7 @@ const Rate = (props) => {
           <Grid item>
             <Grid item>
               <TextField
+                error={!hoursPerWeek & !success}
                 id="estimated-hours"
                 select
                 value={hoursPerWeek}
@@ -381,16 +411,19 @@ const Rate = (props) => {
             <text>Is this course well taught?</text>
           </Grid>
           <Grid item className="center-stuff">
-            <RadioGroup
-              aria-labelledby="easy-a-buttons-group-label"
-              name="easy-a-buttons-group"
-              row
-              value={handleWellTaught}
-              onChange={handleCourseWellTaughtChange}
-            >
-              <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-              <FormControlLabel value="no" control={<Radio />} label="No" />
-            </RadioGroup>
+            <FormControl error={!courseWellTaught & wellTaughtError}>
+              <RadioGroup
+                aria-labelledby="easy-a-buttons-group-label"
+                name="easy-a-buttons-group"
+                row
+                value={courseWellTaught}
+                onChange={handleCourseWellTaughtChange}
+              >
+                <FormControlLabel value="yes" control={<Radio />} label="Yes" />
+                <FormControlLabel value="no" control={<Radio />} label="No" />
+              </RadioGroup>
+              {!courseWellTaught & wellTaughtError ? ( <FormHelperText>Please select an option.</FormHelperText> ) : (<FormHelperText></FormHelperText>) } 
+            </FormControl>
           </Grid>
         </Grid>
 
