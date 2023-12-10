@@ -5,17 +5,14 @@
 }
 
 .box {
-  /* background-color: #deeeff; */
   display: flex;
-  /* justify-content: center;
-  align-items: center; */
 }
 
 .container {
   width: 100%;
   background-color: white;
   padding: 30px;
-  /* box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1); */
+
   border-radius: 20px;
   display: flex;
   flex-direction: column; /* Change to column layout */
@@ -47,10 +44,9 @@
 
 .content_box {
   padding: 20px;
-  width: 100%; /* Set width to 100% to take full width */
-  /* background-color: grey; */
-  display: flex; /* Add flex display for child alignment */
-  justify-content: flex-start; /* Align child elements to the left */
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .content_box .content {

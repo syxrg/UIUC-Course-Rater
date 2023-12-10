@@ -1,20 +1,32 @@
 .align-left {
-    text-align: left;
-    margin-left: 25px;
-  }
+  text-align: left;
+  margin-left: 25px;
+}
 
-  .center-stuff {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.center-stuff {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  .text-box {
-    width: 80%;
-  }
+.text-box {
+  width: 80%;
+}
 
-a { text-decoration: none; color:black; }
-a:visited { text-decoration: none; }
-a:hover { text-decoration: none; }
-a:focus { text-decoration: none; }
-a:hover, a:active { text-decoration: none; }
+a {
+  text-decoration: none;
+  color: black;
+}
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+a:focus {
+  text-decoration: none;
+}
+a:hover,
+a:active {
+  text-decoration: none;
+}

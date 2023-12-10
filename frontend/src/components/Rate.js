@@ -9,7 +9,7 @@ import {
   Button,
   MenuItem,
   FormHelperText,
-  FormControl
+  FormControl,
 } from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -122,8 +122,14 @@ const Rate = (props) => {
       overall_rating: overallRating,
       comments,
     };
-    
-    if (professor != "" & term  != "" & easyA != "" & hoursPerWeek != "" & courseWellTaught !=""){
+
+    if (
+      (professor != "") &
+      (term != "") &
+      (easyA != "") &
+      (hoursPerWeek != "") &
+      (courseWellTaught != "")
+    ) {
       try {
         const response = await fetch("/api/reviews", {
           method: "POST",
@@ -132,7 +138,7 @@ const Rate = (props) => {
           },
           body: JSON.stringify(formData),
         });
-  
+
         if (response.ok) {
           setIsSubmitted(true);
           setSuccess(true);
@@ -143,20 +149,17 @@ const Rate = (props) => {
       } catch (error) {
         console.error("Error submitting review:", error);
       }
-    }
-    else {
-      setSuccess(false)
+    } else {
+      setSuccess(false);
       if (!easyA) {
-        setEasyAError(true)
-      }
-      else {
-        setEasyAError(false)
+        setEasyAError(true);
+      } else {
+        setEasyAError(false);
       }
       if (!courseWellTaught) {
-        setWellTaughtError(true)
-      }
-      else {
-        setWellTaughtError(false)
+        setWellTaughtError(true);
+      } else {
+        setWellTaughtError(false);
       }
     }
   };
@@ -349,8 +352,11 @@ const Rate = (props) => {
                 <FormControlLabel value="yes" control={<Radio />} label="Yes" />
                 <FormControlLabel value="no" control={<Radio />} label="No" />
               </RadioGroup>
-              {!easyA & easyAError ? ( <FormHelperText>Please select an option.</FormHelperText> ) : (<FormHelperText></FormHelperText>) } 
-
+              {!easyA & easyAError ? (
+                <FormHelperText>Please select an option.</FormHelperText>
+              ) : (
+                <FormHelperText></FormHelperText>
+              )}
             </FormControl>
           </Grid>
         </Grid>
@@ -422,7 +428,11 @@ const Rate = (props) => {
                 <FormControlLabel value="yes" control={<Radio />} label="Yes" />
                 <FormControlLabel value="no" control={<Radio />} label="No" />
               </RadioGroup>
-              {!courseWellTaught & wellTaughtError ? ( <FormHelperText>Please select an option.</FormHelperText> ) : (<FormHelperText></FormHelperText>) } 
+              {!courseWellTaught & wellTaughtError ? (
+                <FormHelperText>Please select an option.</FormHelperText>
+              ) : (
+                <FormHelperText></FormHelperText>
+              )}
             </FormControl>
           </Grid>
         </Grid>

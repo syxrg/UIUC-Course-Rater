@@ -1,9 +1,9 @@
 .login-button {
   background: #7360ff;
   border-radius: 999px;
-  box-shadow: #5E5DF0 0 5px 20px -10px;
+  box-shadow: #5e5df0 0 5px 20px -10px;
   box-sizing: border-box;
-  color: #FFFFFF;
+  color: #ffffff;
   cursor: pointer;
   font-size: 16px;
   font-weight: 700;
@@ -67,20 +67,23 @@
     transition: 0.2s;
     font-size: 1rem;
     color: #7360ff;
-    font-weight:700;    
+    font-weight: 700;
   }
-  padding-bottom: 6px;  
+  padding-bottom: 6px;
   font-weight: 700;
-  border-width: 3px;;
+  border-width: 3px;
   border-image-slice: 1;
 }
 /* reset input */
-.form__field{
-  &:required,&:invalid { box-shadow:none; }
+.form__field {
+  &:required,
+  &:invalid {
+    box-shadow: none;
+  }
 }
 
 section {
-  font-family: 'Poppins', sans-serif; 
+  font-family: "Poppins", sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: center;

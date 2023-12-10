@@ -35,7 +35,6 @@ const Profile = ({ handleLogout }) => {
 
   return (
     <div>
-      {/* <h1>Profile</h1> */}
       <Grid container direction="row">
         <Grid item xs={10} direction="column">
           <h1 className="heyUser">Hey, {username}</h1>
