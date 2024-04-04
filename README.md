@@ -4,6 +4,17 @@
 
 **Team Members**: Serlina Ku (sku6), Serena Gong (sxgong2), Adrianne Sun (ajsun2), Wendy Ruan (wruan), Kelly Shih (kshih7)
 
+**Technologies Utilised**: Javascript, React.js, Node.js, Express.js, Google Cloud Platform, MySQL Database, Gitlab CI/CD
+
+**URL**: ~~https://unique-alpha-407002.uc.r.appspot.com/~~ Website no longer active
+
+**Images of the product:**
+![Product Image 1](login.png)
+![Product Image 2](browse.png)
+![Product Image 3](rate.png)
+![Product Image 3](rating.png)
+
+
 ## About Our Project
 
 ### Problem Statement + Motivation
